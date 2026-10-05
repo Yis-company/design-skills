@@ -1,0 +1,5 @@
+interface:
+  display_name: "Audit Design System"
+  short_description: "Find and grill design-system drift"
+policy:
+  allow_implicit_invocation: false

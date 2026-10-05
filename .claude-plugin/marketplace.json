@@ -1,21 +1,21 @@
 {
-  "name": "mattpocock",
+  "name": "yitam",
   "owner": {
-    "name": "Matt Pocock",
-    "url": "https://www.aihero.dev"
+    "name": "Yi Tam",
+    "url": "https://github.com/Yis-company/design-skills"
   },
-  "description": "Matt Pocock's skills for real engineering, as an installable Claude Code plugin.",
+  "description": "Yi Tam's design skills, as an installable Claude Code plugin.",
   "plugins": [
     {
-      "name": "mattpocock-skills",
+      "name": "design-skills",
       "source": "./",
-      "description": "Matt Pocock's agent skills for real engineering (grilling, spec/ticket flows, TDD, code review, domain modelling and more).",
-      "category": "engineering",
+      "description": "Agent skills for designers who read the codebase (design specs and tickets, design QA, design-system audits).",
+      "category": "design",
       "keywords": [
-        "engineering",
-        "skills",
-        "tdd",
-        "code-review",
+        "design",
+        "design-qa",
+        "design-system",
+        "specs",
         "grilling"
       ]
     }

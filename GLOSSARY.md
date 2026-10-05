@@ -1,6 +1,6 @@
-# Matt Pocock Skills
+# Design Skills
 
-A collection of agent skills (slash commands and behaviors) loaded by Claude Code. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills`.
+A collection of agent skills (slash commands and behaviors) loaded by Claude Code. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-design-skills`.
 
 ## Language
 
@@ -14,6 +14,10 @@ _Avoid_: ticket (use only when quoting external systems that call them tickets, 
 
 **Decision ticket**:
 A `wayfinder` unit: a child **Issue** of a `wayfinder:map` holding a *question* whose resolution is a decision, not a slice of a build to execute. The **decision** qualifier is what keeps it distinct from an implementation ticket; `wayfinder` introduces the term, then uses "ticket".
+
+**Design source**:
+Where a repo's designs live (a Figma, Penpot or Sketch file, or exported frames), recorded by `setup-design-skills` in `docs/agents/design-source.md`. Skills read it as a link plus exports and never call a design-tool API.
+_Avoid_: Figma file (the skills are tool-agnostic), mockups
 
 **Triage role**:
 A canonical state-machine label applied to an **Issue** during triage (e.g. `needs-triage`, `ready-for-afk`). Each role maps to a real label string in the **Issue tracker** via `docs/agents/triage-labels.md`.
