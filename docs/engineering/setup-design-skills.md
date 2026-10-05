@@ -1,6 +1,6 @@
 ## What it does
 
-`setup-design-skills` answers three questions about one repo: where issues live, what the triage labels are called, and where the domain docs sit. It records the answers as markdown files under `docs/agents/`.
+`setup-design-skills` answers four questions about one repo: where issues live, what the triage labels are called, where the domain docs sit, and where the designs live. It records the answers as markdown files under `docs/agents/`.
 
 Those files are the only thing that varies between repos. The skills themselves are identical everywhere. They read `docs/agents/issue-tracker.md` at run time and do what it says. That is why the set is not tied to GitHub, and why you never edit a skill file to point it at another tracker. Invoking it with "link the skills to a custom issue tracker" works with anything you can connect to programmatically, with no changes to the skills.
 
@@ -10,7 +10,7 @@ It is a prompt-driven skill, not a deterministic script. It reads your `git remo
 
 You invoke this by typing `/setup-design-skills`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own. Its metadata marks it non-invokable on purpose, so no other skill can fire it for you.
 
-Reach for it once per repo, before the first use of any other engineering skill. If [triage](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/triage.md), [to-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-spec.md), [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md) or [wayfinder](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/wayfinder.md) start guessing where your issues go, or apply labels your tracker doesn't have, this repo has not been set up yet. You can run it in a repo halfway through a project. The skill reads what is already there, so no earlier work is lost.
+Reach for it once per repo, before the first use of any other skill in the set. If [triage](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/triage.md), [to-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-spec.md), [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md) or [wayfinder](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/wayfinder.md) start guessing where your issues go, or apply labels your tracker doesn't have, this repo has not been set up yet. You can run it in a repo halfway through a project. The skill reads what is already there, so no earlier work is lost.
 
 ## Prerequisites
 
@@ -20,12 +20,13 @@ It writes into the repo you run it in:
 | --- | --- |
 | `issue-tracker.md` | `docs/agents/` |
 | `domain.md` | `docs/agents/` |
+| `design-source.md` | `docs/agents/` |
 | `triage-labels.md` | `docs/agents/`, only when the `triage` skill is installed |
 | An `## Agent skills` block | whichever of `CLAUDE.md` or `AGENTS.md` already exists |
 
 You commit all of it as markdown. There is no user-level or global mode. The config lives in the repo, so every repo gets its own copy.
 
-## The three decisions
+## The four decisions
 
 It starts each section with the recommended answer, and skips any question its exploration already answered. Most runs need only two confirmations.
 
@@ -34,6 +35,7 @@ It starts each section with the recommended answer, and skips any question its e
 | **Issue tracker** | the one matching your `git remote` | always, because this is the one real choice |
 | **Triage labels** | keep the five canonical names (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`) | only if the `triage` skill is installed |
 | **Domain docs** | single-context: one `GLOSSARY.md` plus `docs/adr/` at the root | only if it spots monorepo signals, and then it offers a multi-context `GLOSSARY-MAP.md` |
+| **Design source** | whatever it found: token files, a component folder, design-tool links in the docs | always, for the design-tool links and how to get exports |
 
 The tracker options:
 
@@ -71,7 +73,7 @@ It doesn't. `docs/agents/triage-labels.md` is a *mapping*: it tells `/triage` wh
 
 **Can I configure the other skills' behaviour here ([grilling](https://www.aihero.dev/ai-coding-dictionary/grilling) cadence, question format, tone)?**
 
-No. It configures three things: tracker, labels, doc layout. Users have asked to make it the place for per-user preferences. The answer is that skills stay opinionated and take no per-user config. Preferences belong in your `CLAUDE.md` as plain instructions, which every skill already reads.
+No. It configures four things: tracker, labels, doc layout, design source. Users have asked to make it the place for per-user preferences. The answer is that skills stay opinionated and take no per-user config. Preferences belong in your `CLAUDE.md` as plain instructions, which every skill already reads.
 
 **Can I keep the config in `~/.claude` instead of committing it to every repo?**
 
@@ -83,7 +85,7 @@ One long-standing complaint says yes, in these words: *"having a skill to set up
 
 ## It's working if
 
-- `docs/agents/issue-tracker.md` and `docs/agents/domain.md` exist, plus `triage-labels.md` if `triage` is installed.
+- `docs/agents/issue-tracker.md`, `docs/agents/domain.md` and `docs/agents/design-source.md` exist, plus `triage-labels.md` if `triage` is installed.
 - An `## Agent skills` section appears in the instruction file your harness reads, with a one-line summary pointing at each of those files.
 - The tracker it proposed matches the remote you use, and the label strings match labels that exist in your tracker.
 - Afterwards, `/to-tickets` publishes without asking you where issues live, and `/triage` applies labels rather than inventing them.
@@ -91,4 +93,4 @@ One long-standing complaint says yes, in these words: *"having a skill to set up
 
 ## Where it fits
 
-`setup-design-skills` is the **run-once setup** for the engineering flow, the precondition everything else assumes rather than a step in the chain. Its neighbours are its readers: [triage](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/triage.md), which applies the label vocabulary written here; [to-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-spec.md) and [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md), which publish into the tracker named here; and [wayfinder](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/wayfinder.md), which reads the "Wayfinding operations" section of the same tracker file to learn how to store maps and child [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket). [domain-modeling](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/domain-modeling.md) later fills in the domain-doc layout that setup records. It creates `GLOSSARY.md` and ADRs only when you resolve a term or decision, so a repo with no domain docs after setup is normal. For which skill to reach for next, [ask-matt](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-matt.md) routes the whole set.
+`setup-design-skills` is the **run-once setup** for the whole set, the precondition everything else assumes rather than a step in the chain. Its neighbours are its readers: [triage](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/triage.md), which applies the label vocabulary written here; [to-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-spec.md) and [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md), which publish into the tracker named here; and [wayfinder](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/wayfinder.md), which reads the "Wayfinding operations" section of the same tracker file to learn how to store maps and child [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket). [design-qa](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) and [audit-design-system](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/audit-design-system.md) read the design source recorded here, and work without it. [domain-modeling](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/domain-modeling.md) later fills in the domain-doc layout that setup records. It creates `GLOSSARY.md` and ADRs only when you resolve a term or decision, so a repo with no domain docs after setup is normal. For which skill to reach for next, [ask-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-design.md) routes the whole set.

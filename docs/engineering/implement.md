@@ -1,12 +1,14 @@
+> **Archived.** This skill was removed from the plugin in v2.0.0, when the set was rewritten for designers who stay read-only on production code. Nothing replaces it: engineers build from the tickets, and [design-qa](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) checks the result. The page stays up for reference.
+
 ## What it does
 
-`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/tdd.md) at the seams, typechecks as it goes, runs [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md) at the end, and commits to the current branch.
+`implement` builds work that has already been decided. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation, and it writes the code, drives [tdd](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/tdd.md) at the seams, typechecks as it goes, runs [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) at the end, and commits to the current branch.
 
 It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the skill's whole job is to turn that into a commit. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which often redesigns the work while it builds it.
 
 ## When to reach for it
 
-You invoke this by typing `/implement` yourself, and the agent won't reach for it on its own. It ships with `disable-model-invocation: true`, so no other skill can call it either. Wherever [ask-matt](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-matt.md) or [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md) says "then `/implement` per ticket", that is an instruction to you, not something the agent will do unprompted.
+You invoke this by typing `/implement` yourself, and the agent won't reach for it on its own. It ships with `disable-model-invocation: true`, so no other skill can call it either. Wherever [ask-matt](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-design.md) or [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md) says "then `/implement` per ticket", that is an instruction to you, not something the agent will do unprompted.
 
 Where the work currently lives decides whether this is the right skill:
 
@@ -18,7 +20,7 @@ Where the work currently lives decides whether this is the right skill:
 | Only in the conversation you just had, and it's still small | `/implement` right there, in the same window |
 | Not written down anywhere yet | [grill-with-docs](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/grill-with-docs.md), or [grill-me](https://github.com/Yis-company/design-skills/blob/main/docs/productivity/grill-me.md) if there's no codebase |
 | One concrete behaviour you want test-first, with no spec | [tdd](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/tdd.md) directly |
-| Already built, and you want it checked | [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md) directly |
+| Already built, and you want it checked | [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) directly |
 
 The same-session case is worth naming because the skill's own first line doesn't cover it. `SKILL.md` says "the spec or tickets", which pushes the [model](https://www.aihero.dev/ai-coding-dictionary/model) to look for a file that doesn't exist. If the plan lives only in the thread, say so when you invoke it.
 
@@ -36,7 +38,7 @@ A run has five steps, in order:
 2. Drive [tdd](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/tdd.md) at the pre-agreed seams, one red-green slice at a time.
 3. Typecheck often, run single test files as it goes.
 4. Run the full test suite once, at the end.
-5. Run [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md), then commit to the current branch.
+5. Run [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md), then commit to the current branch.
 
 One run covers one ticket. The tickets [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, commit, clear again. Each ticket is self-contained, so you can discard the previous ticket's context.
 
@@ -64,7 +66,7 @@ Not built in. It commits straight to the current branch. Several people find thi
 
 `code-review` reviews `git diff <fixed-point>...HEAD`, which excludes staged and working-tree changes. `implement` runs it before committing, so unless an interim commit already exists there is nothing in that diff to review. Multiple people have reported this and it is unfixed on both sides. Commit first, then review against the point you branched from.
 
-Separately, some people do not want the review inside the run at all, because an agent reviewing the code it just wrote is biased toward its own solution. Running [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md) in a fresh session against a fixed point is a valid alternative. The same bias is why that skill runs its two axes in separate sub-agents.
+Separately, some people do not want the review inside the run at all, because an agent reviewing the code it just wrote is biased toward its own solution. Running [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) in a fresh session against a fixed point is a valid alternative. The same bias is why that skill runs its two axes in separate sub-agents.
 
 **One ticket burned 150k tokens. Am I using it wrong?**
 
@@ -90,8 +92,8 @@ The agent resolves `#2` against whatever numbered list it can see. In a fresh se
 grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
-Its neighbours are [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md), which produces the tickets it consumes and declares the blocking edges that decide their order; [tdd](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/tdd.md), which it drives internally at each seam; and [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md), which it runs before committing. It sits downstream of the planning skills and trusts them. It does not re-validate the shape of what it was handed, so a badly-structured map or a horizontally-layered ticket gets built as written.
+Its neighbours are [to-tickets](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-tickets.md), which produces the tickets it consumes and declares the blocking edges that decide their order; [tdd](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/tdd.md), which it drives internally at each seam; and [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md), which it runs before committing. It sits downstream of the planning skills and trusts them. It does not re-validate the shape of what it was handed, so a badly-structured map or a horizontally-layered ticket gets built as written.
 
 That trust is why [wayfinder](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/wayfinder.md) merges onto the chain at [to-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-spec.md) rather than looping its map straight into `implement`. Go straight to `implement` from a map only when the effort turned out small.
 
-[ask-matt](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-matt.md) is the router over the whole set when you are not sure which flow you are in.
+[ask-matt](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-design.md) is the router over the whole set when you are not sure which flow you are in.

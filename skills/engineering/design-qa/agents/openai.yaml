@@ -1,0 +1,3 @@
+interface:
+  display_name: "Design QA"
+  short_description: "Check a build on fidelity and system"

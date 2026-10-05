@@ -1,3 +1,5 @@
+> **Archived.** This skill was removed from the plugin in v2.0.0, when the set was rewritten for designers who stay read-only on production code. Nothing replaces it: engineers build from the tickets, and [design-qa](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) checks the result. The page stays up for reference.
+
 ## What it does
 
 `tdd` builds a feature or fixes a bug test-first: one failing test, then just enough code to pass it, then the next behaviour. It carries the standards that make that loop produce tests worth keeping: what a good test is, where tests go, what mocks are for, and the three anti-patterns that make a suite worthless.
@@ -14,7 +16,7 @@ Reach for it when there is a concrete behaviour to build, with an input and an o
 | --- | --- |
 | A behaviour with defined inputs and outputs (business logic, a request/response contract, a transformation, validation) | `tdd` |
 | The behaviour isn't pinned down yet | [to-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-spec.md), which also agrees the test seams before any code is written |
-| The question is really the shape of the interface, not the tests | [codebase-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/codebase-design.md) |
+| The question is really the shape of the interface, not the tests | [codebase-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-system.md) |
 | You have a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) or [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and want the whole build run for you | [implement](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/implement.md), which drives `tdd` per ticket |
 | Config, wiring, glue, type annotations, straight CRUD delegation | Nothing here fits well; see the open gap below |
 
@@ -22,13 +24,13 @@ That last row is a real gap. The skill decides *where* the seams go, but nothing
 
 ## Prerequisites
 
-[codebase-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/codebase-design.md) needs to be installed. `tdd` used to carry its own deep-module and interface-design notes; v1.0 deleted them in favour of the shared skill, and `tdd` now uses its interface-design vocabulary. Nothing else; the skill is [stateless](https://www.aihero.dev/ai-coding-dictionary/stateless) and writes no files of its own.
+[codebase-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-system.md) needs to be installed. `tdd` used to carry its own deep-module and interface-design notes; v1.0 deleted them in favour of the shared skill, and `tdd` now uses its interface-design vocabulary. Nothing else; the skill is [stateless](https://www.aihero.dev/ai-coding-dictionary/stateless) and writes no files of its own.
 
 ## The loop, and the seam it runs at
 
 The skill rests on three terms.
 
-**Red-green.** Write the failing test, then only enough code to pass it. Do not write code for the test after next. There is no refactor phase. The skill dropped it in June 2026 because agents almost never performed it, and because review and implementation work better as separate sessions. Refactoring belongs to [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md).
+**Red-green.** Write the failing test, then only enough code to pass it. Do not write code for the test after next. There is no refactor phase. The skill dropped it in June 2026 because agents almost never performed it, and because review and implementation work better as separate sessions. Refactoring belongs to [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md).
 
 **Vertical slice.** Write one test at one seam, then the minimal implementation, then repeat. The first cycle is a **tracer bullet** that proves a single path end to end. The opposite is horizontal slicing: all the tests first, then all the code. Tests written in bulk verify *imagined* behaviour. They check the shape of things rather than what a user does, and they commit you to a test structure before you understand the implementation.
 
@@ -48,7 +50,7 @@ Mocks are for system boundaries only: external APIs, time, randomness, sometimes
 
 **Why doesn't it refactor? The description says "red-green-refactor".**
 
-Because the refactor step was removed and the description was not. The removal was deliberate. Agents almost never did the step, and keeping implementation and review in separate sessions works better. Whether the result still counts as TDD by the book matters less than whether the loop produces better code. The mismatch between the trigger phrase and the body is filed as [issue #589](https://github.com/mattpocock/skills/issues/589) and is still open, so "red-green-refactor" continues to work as a phrase that fires the skill. What you get is red-green, with refactoring in [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md).
+Because the refactor step was removed and the description was not. The removal was deliberate. Agents almost never did the step, and keeping implementation and review in separate sessions works better. Whether the result still counts as TDD by the book matters less than whether the loop produces better code. The mismatch between the trigger phrase and the body is filed as [issue #589](https://github.com/mattpocock/skills/issues/589) and is still open, so "red-green-refactor" continues to work as a phrase that fires the skill. What you get is red-green, with refactoring in [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md).
 
 **It asked me to choose a test seam and I had no idea which to pick.**
 
@@ -68,7 +70,7 @@ No. `/tdd` documents the methodology; `/implement` is a simple work→feedback�
 
 **Where did the deep-modules and interface-design guidance go?**
 
-Into [codebase-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/codebase-design.md) in v1.0, generalised so several skills share one vocabulary. `refactoring.md` left at the same time; refactoring is now [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md)'s job, and that skill carries the Fowler smell baseline.
+Into [codebase-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-system.md) in v1.0, generalised so several skills share one vocabulary. `refactoring.md` left at the same time; refactoring is now [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md)'s job, and that skill carries the Fowler smell baseline.
 
 **Does it know about my other tickets?**
 
@@ -91,4 +93,4 @@ No. Run against one ticket, it can propose work that belongs to a sibling ticket
 grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
-[to-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-spec.md) agrees the test seams up front, [implement](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/implement.md) drives `tdd` per ticket, and [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md) checks afterwards that only the agreed seams were used, and owns the refactoring `tdd` no longer does. Its other neighbour is [codebase-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/codebase-design.md), the shared source of the seam and deep-module vocabulary that `tdd` uses. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-matt](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-matt.md) routes you.
+[to-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/to-spec.md) agrees the test seams up front, [implement](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/implement.md) drives `tdd` per ticket, and [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) checks afterwards that only the agreed seams were used, and owns the refactoring `tdd` no longer does. Its other neighbour is [codebase-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-system.md), the shared source of the seam and deep-module vocabulary that `tdd` uses. You can also reach for it on its own, whenever there is a concrete behaviour to build and no full spec in play. When you are unsure which skill fits your situation, [ask-matt](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-design.md) routes you.

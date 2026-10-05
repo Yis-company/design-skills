@@ -11,7 +11,7 @@ Type `/pr`, or the agent reaches for it automatically whenever it is writing a P
 | Your situation | Reach for |
 | --- | --- |
 | A branch is ready and needs a body a reviewer can scan | `pr` |
-| The code is written but nobody has reviewed it yet | [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md) first, then `pr` |
+| The UI is built but nobody has checked it against the design yet | [design-qa](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) first, then `pr` |
 | The PR is open and review comments are coming back | Nothing in this set yet; `pr` only writes the body |
 
 ## The template
@@ -32,7 +32,7 @@ Not blindly, and that is the point of stating it. The agent that wrote the chang
 
 **Does it open the PR for me?**
 
-No. `pr` covers only the body. [implement](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/implement.md) ends by committing to the current branch. Requests for a skill or option that opens the PR (a `/to-pr`, or `implement` opening a PR instead of committing) are still open proposals. One user's workaround is a one-sentence local override of `implement` that tells it to open a PR. [implement-spec](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/implement-spec.md) is the exception: it opens a draft PR when your issue tracker closes work through PRs or when you ask for one. Because `pr` is model-invoked, the agent uses this shape for the body whenever you ask it to open a PR.
+No. `pr` covers only the body. Because it is model-invoked, the agent uses this shape for the body whenever you ask it to open a PR.
 
 **Won't it just produce another wall of text and diagrams?**
 
@@ -71,9 +71,8 @@ Not by itself. One user's approach is a standing instruction in the repo's agent
 
 ## Where it fits
 
-`pr` comes between review and retro when the build ships as a pull request: `to-spec → to-tickets → implement → code-review → pr → retro`. It is model-invoked, so it also fires on its own any time the agent writes a PR body outside that chain.
+`pr` comes after design QA when a change ships as a pull request: `to-spec → to-tickets → (engineers build) → design-qa → pr`. It is model-invoked, so it also fires on its own any time the agent writes a PR body outside that chain.
 
-- [code-review](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/code-review.md) runs before it, because a PR body should describe a diff that has already been reviewed.
-- [implement](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/implement.md) produces the commits the body describes.
+- [design-qa](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/design-qa.md) runs before it, because a PR body should describe a build that has already been checked against the design. Its screenshots make good before/after evidence.
 
-[ask-matt](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-matt.md) routes across the whole set when you are unsure which skill the situation wants.
+[ask-design](https://github.com/Yis-company/design-skills/blob/main/docs/engineering/ask-design.md) routes across the whole set when you are unsure which skill the situation wants.
