@@ -1,5 +1,29 @@
 # mattpocock-skills
 
+## 2.0.0
+
+### Major Changes
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`758df55`](https://github.com/Yis-company/design-skills/commit/758df5554acad62157910307b7d224e6d70dcc54) Thanks [@ybtam](https://github.com/ybtam)! - Rename the router `ask-matt` to `ask-design`, and remap its main flow to the designer route: grill, design spec, tickets, engineers build, then `design-qa`. `/audit-design-system` replaces codebase health.
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`758df55`](https://github.com/Yis-company/design-skills/commit/758df5554acad62157910307b7d224e6d70dcc54) Thanks [@ybtam](https://github.com/ybtam)! - Rename `improve-codebase-architecture` to `audit-design-system`. It now surveys the codebase for drift from the design system (hardcoded values where a token exists, near-duplicate components, one-off variants, unused tokens) and renders each candidate as a visual before/after card.
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`758df55`](https://github.com/Yis-company/design-skills/commit/758df5554acad62157910307b7d224e6d70dcc54) Thanks [@ybtam](https://github.com/ybtam)! - Rename `code-review` to `design-qa` and rewrite it for designers. It runs two axes: **Fidelity** checks the build against the design spec and design source, every screen state included, and **System** checks the build against the design system with a design-smell baseline that replaces the Fowler list. When the app runs locally, it screenshots each state next to its design export.
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`758df55`](https://github.com/Yis-company/design-skills/commit/758df5554acad62157910307b7d224e6d70dcc54) Thanks [@ybtam](https://github.com/ybtam)! - Rename `codebase-design` to `design-system`: the vocabulary layer for tokens, components, variants, slots and drift. The deep-module material (`DEEPENING.md`, `DESIGN-IT-TWICE.md`) is removed.
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`758df55`](https://github.com/Yis-company/design-skills/commit/758df5554acad62157910307b7d224e6d70dcc54) Thanks [@ybtam](https://github.com/ybtam)! - Rewrite `to-spec` for designers. It writes a design spec: Flows, Screen states (default, empty, loading, error, partial, overflow), Components and tokens, Content, Responsive/interaction/accessibility, Design decisions, and How design QA will check it. It replaces the Implementation and Testing Decisions sections. The seams step becomes "confirm the component inventory".
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`758df55`](https://github.com/Yis-company/design-skills/commit/758df5554acad62157910307b7d224e6d70dcc54) Thanks [@ybtam](https://github.com/ybtam)! - Rewrite `to-tickets` for designers. A slice is now one flow or screen carried through all its states, new tokens and components are blocking tickets ahead of the screens that use them ("system first"), acceptance criteria point at frames or exports, and token migrations follow expand–contract.
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`6ad7d5b`](https://github.com/Yis-company/design-skills/commit/6ad7d5bf5b629d440c3ae3e2e99b079c828e0f50) Thanks [@ybtam](https://github.com/ybtam)! - Rebrand the fork as `design-skills`. The plugin is now `design-skills`, installed from this repo's own marketplace (`/plugin marketplace add Yis-company/design-skills`, then `/plugin install design-skills@yitam`) instead of the official listing for `mattpocock-skills`. `setup-matt-pocock-skills` is renamed `setup-design-skills`; re-run it under the new name, since its config output is unchanged. Docs pages are now read on GitHub under `docs/<bucket>/<name>.md` instead of `aihero.dev/skills-<name>`.
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`758df55`](https://github.com/Yis-company/design-skills/commit/758df5554acad62157910307b7d224e6d70dcc54) Thanks [@ybtam](https://github.com/ybtam)! - Retire `tdd`, `implement` and `implement-spec` to `deprecated/`, along with the in-progress `setup-ts-deep-modules`. The set is now read-only on production code: engineers build from the tickets, and `design-qa` checks the result. Their docs pages stay, marked archived.
+
+### Minor Changes
+
+- [#1](https://github.com/Yis-company/design-skills/pull/1) [`758df55`](https://github.com/Yis-company/design-skills/commit/758df5554acad62157910307b7d224e6d70dcc54) Thanks [@ybtam](https://github.com/ybtam)! - `setup-design-skills` gains a **Design source** section that writes `docs/agents/design-source.md`: where designs live, how to get exports, and where token and component sources are in code. `to-spec`, `design-qa` and `audit-design-system` read it when it is there.
+
 ## 1.3.1
 
 ### Patch Changes
